@@ -1,0 +1,44 @@
+```{r}
+install.packages("BIEN") # Comment out this command with a # once you have BIEN installed.
+# Then of course you need to open the package from your library of installed packages. Simultaneously, it's smart to open some other packages that may already be installed, which is done below with the library command.
+```
+
+```{r}
+library(BIEN)
+library(ape) # Package for working with phylogenies in R
+library(maps) # Useful for making quick maps of occurrences
+library(sp) # A package for spatial data
+vignette("BIEN")
+```
+
+```{r}
+# Download the data for avocado (Persea americana).
+Persea_americana <- BIEN_occurrence_species(species = "Persea americana")
+```
+
+```{r}
+str(Persea_americana)
+head(Persea_americana)
+```
+
+```{r}
+avocado_rangemap <- BIEN_ranges_load_species("Persea_americana")
+```
+
+
+```{r}
+avocado<-BIEN_occurrence_species(species = "Persea_americana")
+```
+
+```{r}
+# Map the range of avocado
+map('world', fill=T, col="grey", bg="light blue", xlim=c(-180,20),ylim=c(-60,80))
+plot(avocado_rangemap, col="green", add=T)
+```
+
+```{r}
+# Map the range of avocado + occurence records
+map('world', fill=T, col="grey", bg="light blue", xlim=c(-180,-20), ylim=c(-60, 80))
+plot(avocado_rangemap, col="green", add=T)
+points(cbind(Persea_americana$longitude, Persea_americana$latitude), col="blue", pch=20, cex=1)
+```
